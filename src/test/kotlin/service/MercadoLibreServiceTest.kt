@@ -12,6 +12,7 @@ fun getDraftNewUser(name: String): DraftNewUser {
         "image.com/asd.png"
     )
 }
+
 fun getDraftProduct(name: String, categoryId: String = "c_1"): DraftProduct {
     return DraftProduct(
         name,
@@ -145,6 +146,29 @@ class MercadoLibreServiceTest {
         assertEquals(product, mercadoLibreService.products[0])
         assertEquals(registerUser.products.size, 1)
         assertEquals(registerUser.products[0], product)
+    }
+
+    @Test
+    fun editProductTest() {
+        val mercadoLibreService = MercadoLibreService()
+        val registerUser = mercadoLibreService.registerNewUser(getDraftNewUser("example"))
+        val product = mercadoLibreService.addProduct(registerUser.id, getDraftProduct("product"))
+        assertEquals(mercadoLibreService.products.size, 1)
+        mercadoLibreService.editProduct(registerUser.id, product.id, getDraftProduct("product2"))
+        assertEquals(mercadoLibreService.products.size, 1)
+        assertEquals(product.title, "product2")
+    }
+
+    @Test
+    fun editProductNotOwnerTest() {
+        val mercadoLibreService = MercadoLibreService()
+        val registerUser = mercadoLibreService.registerNewUser(getDraftNewUser("example"))
+        val anotherUser = mercadoLibreService.registerNewUser(getDraftNewUser("user"))
+        val product = mercadoLibreService.addProduct(registerUser.id, getDraftProduct("product"))
+        assertEquals(mercadoLibreService.products.size, 1)
+        assertFailsWith<ProductException> {
+            mercadoLibreService.editProduct(anotherUser.id, product.id, getDraftProduct("product2"))
+        }
     }
 
     @Test

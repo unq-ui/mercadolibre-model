@@ -79,6 +79,20 @@ class MercadoLibreService {
         return product
     }
 
+    fun editProduct(userId: String, productId: String, draftProduct: DraftProduct): Product {
+        val user = getUser(userId)
+        val product = getProduct(productId)
+        if (product.owner.id != user.id) throw ProductException("Not allowed.")
+        product.title = draftProduct.title
+        product.description = draftProduct.description
+        product.images = draftProduct.images
+        product.stock = draftProduct.stock
+        product.shipping = draftProduct.shipping
+        product.characteristics = draftProduct.characteristics
+        product.category = draftProduct.category
+        return product
+    }
+
     fun getProduct(id: String): Product {
         return products.find { it.id == id } ?: throw ProductException("Not found")
     }

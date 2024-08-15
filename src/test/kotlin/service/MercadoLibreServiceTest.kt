@@ -17,9 +17,10 @@ fun getDraftProduct(name: String, categoryId: String = "c_1"): DraftProduct {
     return DraftProduct(
         name,
         "description: $name",
+        10.0,
         mutableListOf("image.com/$name.png"),
         10,
-        Shipping(100),
+        Shipping(100.0),
         mutableListOf(Characteristic("name1", "value1")),
         Category(categoryId, "cat1")
     )

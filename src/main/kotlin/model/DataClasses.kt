@@ -8,7 +8,7 @@ class Characteristic(val name: String, val value: String)
 
 class Notification(val text: String)
 
-class Shipping(var price: Number)
+class Shipping(var price: Double)
 
 class Product(
     val id: String,
@@ -17,6 +17,7 @@ class Product(
     var description: String,
     var images: MutableList<String>,
     var stock: Int,
+    var price: Double,
     var shipping: Shipping,
     var characteristics: MutableList<Characteristic>,
     var category: Category,

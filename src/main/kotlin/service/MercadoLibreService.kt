@@ -68,6 +68,7 @@ class MercadoLibreService {
             draftProduct.description,
             draftProduct.images,
             draftProduct.stock,
+            draftProduct.price,
             draftProduct.shipping,
             draftProduct.characteristics,
             draftProduct.category,

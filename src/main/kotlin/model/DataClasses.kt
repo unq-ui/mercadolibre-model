@@ -6,8 +6,6 @@ class Category(val id: String, val name: String)
 
 class Characteristic(val name: String, val value: String)
 
-class Notification(val text: String)
-
 class Shipping(var price: Double)
 
 class Product(

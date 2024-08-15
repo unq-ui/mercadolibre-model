@@ -310,7 +310,7 @@ class MercadoLibreServiceTest {
     }
 
     @Test
-    fun buyTest() {
+    fun purchaseTest() {
         val mercadoLibreService = MercadoLibreService()
         val seller = mercadoLibreService.registerNewUser(getDraftNewUser("example"))
         val buyer = mercadoLibreService.registerNewUser(getDraftNewUser("user"))
@@ -322,7 +322,7 @@ class MercadoLibreServiceTest {
         assertEquals(p1.stock, 10)
 
         val payment = Payment("3333", LocalDateTime.now(), "333", "pepe")
-        mercadoLibreService.buy(buyer.id, payment)
+        mercadoLibreService.purchase(buyer.id, payment)
 
         assertEquals(seller.salesHistory.size, 1)
         assertEquals(seller.salesHistory[0].amount, 1)
@@ -337,16 +337,16 @@ class MercadoLibreServiceTest {
     }
 
     @Test
-    fun buyWithoutItemsTest() {
+    fun purchaseWithoutItemsTest() {
         val mercadoLibreService = MercadoLibreService()
         val buyer = mercadoLibreService.registerNewUser(getDraftNewUser("user"))
         assertFailsWith<BuyException> {
-            mercadoLibreService.buy(buyer.id, Payment("3333", LocalDateTime.now(), "333", "pepe"))
+            mercadoLibreService.purchase(buyer.id, Payment("3333", LocalDateTime.now(), "333", "pepe"))
         }
     }
 
     @Test
-    fun buyMoreItemsThanStockTest() {
+    fun purchaseMoreItemsThanStockTest() {
         val mercadoLibreService = MercadoLibreService()
         val seller = mercadoLibreService.registerNewUser(getDraftNewUser("example"))
         val buyer = mercadoLibreService.registerNewUser(getDraftNewUser("user"))
@@ -354,7 +354,7 @@ class MercadoLibreServiceTest {
         mercadoLibreService.updateItemCart(buyer.id, p1.id, 100)
 
         assertFailsWith<BuyException> {
-            mercadoLibreService.buy(buyer.id, Payment("3333", LocalDateTime.now(), "333", "pepe"))
+            mercadoLibreService.purchase(buyer.id, Payment("3333", LocalDateTime.now(), "333", "pepe"))
         }
     }
 

@@ -159,7 +159,7 @@ fun addPurchases(mercadoLibreService: MercadoLibreService) {
           }
         }
       if (random.nextBoolean()) {
-        mercadoLibreService.buy(user.id, getPayment())
+        mercadoLibreService.purchase(user.id, getPayment())
       }
     }
 }

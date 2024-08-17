@@ -1,5 +1,6 @@
 package service
 
+import data.initSystem
 import model.*
 import java.time.LocalDateTime
 import kotlin.test.*
@@ -134,6 +135,21 @@ class MercadoLibreServiceTest {
         assertEquals(mercadoLibreService.getAllCategories().size, 0)
         mercadoLibreService.addCategory("cat1")
         assertEquals(mercadoLibreService.getAllCategories().size, 1)
+    }
+
+    @Test
+    fun getCategoryTest() {
+        val mercadoLibreService = MercadoLibreService()
+        val category = mercadoLibreService.addCategory("cat1")
+        assertEquals(mercadoLibreService.getCategory("c_1"), category)
+    }
+
+    @Test
+    fun getCategoryWrongIdTest() {
+        val mercadoLibreService = MercadoLibreService()
+        assertFailsWith<CategoryException> {
+            mercadoLibreService.getCategory("c_1")
+        }
     }
 
     @Test
@@ -428,5 +444,11 @@ class MercadoLibreServiceTest {
         assertFailsWith<QuestionException> {
             mercadoLibreService.addAnswer(user2.id, p1.id, "q_1", "answer")
         }
+    }
+
+    @Test
+    fun getRelatedProductsTest() {
+        val mercadoLibreService = initSystem()
+        assertEquals(mercadoLibreService.getRelatedProducts("p_90").size, 10)
     }
 }

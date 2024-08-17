@@ -4,6 +4,7 @@ import model.*
 import utilities.Page
 import utilities.getPage
 import java.time.LocalDateTime
+import info.debatty.java.stringsimilarity.*;
 
 class MercadoLibreService {
     private val idGenerator = IdGenerator()
@@ -97,6 +98,16 @@ class MercadoLibreService {
     fun getAllCategories(): List<Category> = categories
 
     /**
+     * Retrieves a category by ID.
+     * @param id The category's ID.
+     * @return The category.
+     * @throws CategoryException if the category is not found.
+     */
+    fun getCategory(id: String): Category {
+        return categories.find { it.id == id } ?: throw CategoryException("Not found")
+    }
+
+    /**
      * Adds a new product.
      * @param userId The user's ID.
      * @param draftProduct The draft product data.
@@ -156,6 +167,20 @@ class MercadoLibreService {
      */
     fun getProduct(id: String): Product {
         return products.find { it.id == id } ?: throw ProductException("Not found")
+    }
+
+    /**
+     * Retrieves related products to a product.
+     * @param idProduct The product's ID.
+     * @return The list of related products (max 10 products).
+     * @throws ProductException if the product is not found.
+    */
+    fun getRelatedProducts(idProduct: String): List<Product> {
+        val product = getProduct(idProduct)
+        val relatedProducts = products.filter {
+            Levenshtein().distance(it.title, product.title) < 3 && it.id != product.id
+        }
+        return relatedProducts.take(10)
     }
 
     /**

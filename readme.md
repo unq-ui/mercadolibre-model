@@ -21,7 +21,7 @@ Agregar la dependencia:
 ```xml
 <dependency>
     <groupId>com.github.unq-ui</groupId>
-    <artifactId>??</artifactId>
+    <artifactId>mercadolibre-model</artifactId>
     <version>??</version>
 </dependency>
 ```
@@ -86,6 +86,14 @@ class MercadoLibreService {
     fun getAllCategories(): List<Category>
 
     /**
+     * Retrieves a category by ID.
+     * @param id The category's ID.
+     * @return The category.
+     * @throws CategoryException if the category is not found.
+     */
+    fun getCategory(id: String): Category
+    
+    /**
      * Adds a new product.
      * @param userId The user's ID.
      * @param draftProduct The draft product data.
@@ -113,6 +121,14 @@ class MercadoLibreService {
      * @throws ProductException if the product is not found.
      */
     fun getProduct(id: String): Product
+
+    /**
+     * Retrieves related products to a product.
+     * @param idProduct The product's ID.
+     * @return The list of related products (max 10 products).
+     * @throws ProductException if the product is not found.
+    */
+    fun getRelatedProducts(idProduct: String): List<Product>
 
     /**
      * Retrieves products by user ID with pagination.

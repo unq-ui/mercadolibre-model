@@ -22,7 +22,7 @@ Agregar la dependencia:
 <dependency>
     <groupId>com.github.unq-ui</groupId>
     <artifactId>mercadolibre-model</artifactId>
-    <version>??</version>
+    <version>v1.2.1</version>
 </dependency>
 ```
 

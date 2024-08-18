@@ -1,10 +1,7 @@
 package data
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import model.*
 import service.MercadoLibreService
-import java.io.File
 import java.time.LocalDateTime
 import kotlin.math.roundToInt
 import kotlin.random.Random

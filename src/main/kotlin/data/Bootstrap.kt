@@ -9,27 +9,6 @@ import java.time.LocalDateTime
 import kotlin.math.roundToInt
 import kotlin.random.Random
 
-class ProductJSON(
-  val id: Int,
-  val title: String,
-  val description: String,
-  val price: Double,
-  val category: String,
-  val stock: Int,
-  val images: List<String>,
-  val dimensions: Map<String, Double>,
-  val shipping: Double,
-)
-
-class UserJSON(
-  val id: Int,
-  val firstName: String,
-  val lastName: String,
-  val email: String,
-  val password: String,
-  val image: String,
-)
-
 val random = Random(100)
 
 fun getPayment () = Payment("1111-1111-1111-1111", LocalDateTime.of(2025, 11, 1, 0, 0), "123", "Example")
@@ -43,19 +22,14 @@ fun getNewPrice(price: Double): Double = randomNumber(price / 2, price * 2)
 fun getRandomQuestion() = getAllComments().random(random)
 
 fun getAllDraftProducts(allCategories: List<Category>): List<DraftProduct> {
-  val file = File("resources/products.json")
-  val jsonString = file.readText()
-  val listType = object : TypeToken<List<ProductJSON?>?>() {}.type
-
-  val list: List<ProductJSON> = Gson().fromJson(jsonString, listType)
-  return list.map {
+  return allProductJson.map {
     DraftProduct(
       title = it.title,
       description = it.description,
       price = it.price,
       images = it.images.toMutableList(),
       stock = it.stock,
-      shipping = Shipping(it.shipping),
+      shipping = Shipping(0.0),
       characteristics = it.dimensions.map { (key,value) -> Characteristic(key, "$value") }.toMutableList(),
       category = allCategories.find { cat -> cat.name == it.category }!!,
     )
@@ -91,12 +65,7 @@ fun addAllCategories(mercadoLibreService: MercadoLibreService) {
 }
 
 fun addAllUsers(mercadoLibreService: MercadoLibreService) {
-  val file = File("resources/users.json")
-  val jsonString = file.readText()
-  val listType = object : TypeToken<List<UserJSON?>?>() {}.type
-
-  val list: List<UserJSON> = Gson().fromJson(jsonString, listType)
-  list.map {
+  allUsers.map {
     DraftNewUser(
       name = "${it.firstName} ${it.lastName}",
       email = it.email,

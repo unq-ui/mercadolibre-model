@@ -31,7 +31,7 @@ class SaleHistory(
 )
 
 class BuyHistory(
-    val items: MutableList<Unit>,
+    val items: MutableList<Item>,
     val payment: Payment,
     val date: LocalDateTime,
 )
@@ -50,11 +50,11 @@ class User(
     val salesHistory: MutableList<SaleHistory>
 )
 
-class Unit (val product: Product, var amount: Int)
+class Item (val product: Product, var amount: Int)
 
 class Cart(
     val user: User,
-    val items: MutableList<Unit>
+    val items: MutableList<Item>
 )
 
 class Payment (

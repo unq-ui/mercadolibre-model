@@ -236,7 +236,7 @@ class MercadoLibreService {
         val cart = getCart(userId)
         val product = getProduct(productId)
         cart.items.removeIf { it.product.id == productId }
-        cart.items.add(Unit(product, amount))
+        cart.items.add(Item(product, amount))
         return cart
     }
 

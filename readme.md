@@ -22,7 +22,7 @@ Agregar la dependencia:
 <dependency>
     <groupId>com.github.unq-ui</groupId>
     <artifactId>mercadolibre-model</artifactId>
-    <version>v1.2.1</version>
+    <version>v1.3.0</version>
 </dependency>
 ```
 
@@ -278,18 +278,18 @@ class SaleHistory(
 )
 
 class BuyHistory(
-    val items: MutableList<Unit>,
+    val items: MutableList<Item>,
     val payment: Payment,
     val date: LocalDateTime,
 )
 
 class Question (val id: String, val product: Product, val user: User, val text: String, var response: String?)
 
-class Unit (val product: Product, var amount: Int)
+class Item (val product: Product, var amount: Int)
 
 class Cart(
     val user: User,
-    val items: MutableList<Unit>
+    val items: MutableList<Item>
 )
 
 class Payment (
@@ -321,4 +321,13 @@ class DraftProduct(
     val characteristics: MutableList<Characteristic>,
     val category: Category,
 )
+```
+
+### Utils
+
+Para crear paginas facilmente se puede usar:
+
+```
+
+fun <E> getPage(list: List<E>, page: Int): Page<E>
 ```

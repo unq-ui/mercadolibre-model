@@ -155,7 +155,3 @@ fun initSystem(): MercadoLibreService {
   addLikes(mercadoLibreService)
   return mercadoLibreService
 }
-
-fun main() {
-  initSystem()
-}

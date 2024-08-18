@@ -451,4 +451,21 @@ class MercadoLibreServiceTest {
         val mercadoLibreService = initSystem()
         assertEquals(mercadoLibreService.getRelatedProducts("p_90").size, 10)
     }
+
+    @Test
+    fun getRelatedProductsTestWithWrongId() {
+        val mercadoLibreService = initSystem()
+        assertFailsWith<ProductException> {
+            mercadoLibreService.getRelatedProducts("p_90000")
+        }
+    }
+
+    @Test
+    fun getAllProducts() {
+        val mercadoLibreService = initSystem()
+        val page = mercadoLibreService.getAllProducts(1)
+        assertEquals(page.amountOfPages, 87)
+        assertEquals(page.currentPage, 1)
+        assertEquals(page.amountOfElements, 1300)
+    }
 }

@@ -123,6 +123,13 @@ class MercadoLibreService {
     fun getProduct(id: String): Product
 
     /**
+     * Retrieves all products with pagination.
+     * @param pageNumber The page number.
+     * @return A page of products.
+     */
+    fun getAllProducts(pageNumber: Int): Page<Product>
+
+    /**
      * Retrieves related products to a product.
      * @param idProduct The product's ID.
      * @return The list of related products (max 10 products).

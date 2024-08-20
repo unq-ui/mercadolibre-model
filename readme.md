@@ -22,7 +22,7 @@ Agregar la dependencia:
 <dependency>
     <groupId>com.github.unq-ui</groupId>
     <artifactId>mercadolibre-model</artifactId>
-    <version>v1.3.0</version>
+    <version>v1.4.0</version>
 </dependency>
 ```
 
@@ -194,7 +194,7 @@ class MercadoLibreService {
      * Completes a purchase for a user.
      * @param idUser The user's ID.
      * @param payment The payment information.
-     * @throws BuyException if the cart is empty or items are out of stock.
+     * @throws PurchaseException if the cart is empty or items are out of stock.
      * @throws UserException if the user is not found.
      */
     fun purchase(idUser: String, payment: Payment)
@@ -257,7 +257,7 @@ class User(
     val email: String,
     var password: String,
     val image: String,
-    val buyHistory: MutableList<BuyHistory>,
+    val purchaseHistory: MutableList<PurchaseHistory>,
     val products: MutableList<Product>,
     val likedProducts: MutableList<Product>,
     val salesHistory: MutableList<SaleHistory>
@@ -277,7 +277,7 @@ class SaleHistory(
     val user: User,
 )
 
-class BuyHistory(
+class PurchaseHistory(
     val items: MutableList<Item>,
     val payment: Payment,
     val date: LocalDateTime,

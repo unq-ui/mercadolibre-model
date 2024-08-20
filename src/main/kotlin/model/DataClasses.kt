@@ -30,7 +30,7 @@ class SaleHistory(
     val user: User,
 )
 
-class BuyHistory(
+class PurchaseHistory(
     val items: MutableList<Item>,
     val payment: Payment,
     val date: LocalDateTime,
@@ -44,7 +44,7 @@ class User(
     val email: String,
     var password: String,
     val image: String,
-    val buyHistory: MutableList<BuyHistory>,
+    val purchaseHistory: MutableList<PurchaseHistory>,
     val products: MutableList<Product>,
     val likedProducts: MutableList<Product>,
     val salesHistory: MutableList<SaleHistory>

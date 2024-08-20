@@ -273,13 +273,13 @@ class MercadoLibreService {
      * Completes a purchase for a user.
      * @param idUser The user's ID.
      * @param payment The payment information.
-     * @throws BuyException if the cart is empty or items are out of stock.
+     * @throws PurchaseException if the cart is empty or items are out of stock.
      * @throws UserException if the user is not found.
      */
     fun purchase(idUser: String, payment: Payment) {
         val user = getUser(idUser)
         val cart = getCart(idUser)
-        if (cart.items.isEmpty()) throw BuyException("Cart is empty")
+        if (cart.items.isEmpty()) throw PurchaseException("Cart is empty")
         if (cart.items.all { it.product.stock >= it.amount }) {
             cart.items.forEach {
                 it.product.stock -= it.amount
@@ -287,10 +287,10 @@ class MercadoLibreService {
                     SaleHistory(it.product, it.amount, payment, LocalDateTime.now(), cart.user)
                 )
             }
-            user.buyHistory.add(BuyHistory(cart.items, payment, LocalDateTime.now()))
+            user.purchaseHistory.add(PurchaseHistory(cart.items, payment, LocalDateTime.now()))
             carts.remove(cart)
         } else {
-            throw BuyException("Unable to complete the purchase because one or more items are out of stock.")
+            throw PurchaseException("Unable to complete the purchase because one or more items are out of stock.")
         }
     }
 

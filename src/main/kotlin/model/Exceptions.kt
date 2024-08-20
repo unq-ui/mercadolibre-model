@@ -6,7 +6,7 @@ class ProductException(msg: String): Exception(msg)
 
 class PageException(msg: String): Exception(msg)
 
-class BuyException(msg: String): Exception(msg)
+class PurchaseException(msg: String): Exception(msg)
 
 class CategoryException(msg: String): Exception(msg)
 
